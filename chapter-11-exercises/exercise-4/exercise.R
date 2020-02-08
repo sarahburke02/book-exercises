@@ -2,14 +2,13 @@
 
 # Install the `"nycflights13"` package. Load (`library()`) the package.
 # You'll also need to load `dplyr`
-install.packages("nycflights13")
+library("nycflights13")
 
 ############I could not get the dplyr package to install. I still wrote all of the following commands down though so that I can go back and look for reference
 ############The code will just not work.
 
 library("nycflights13")
 library("dplyr")
-install.packages("dplyr")
 # The data frame `flights` should now be accessible to you.
 # Use functions to inspect it: how many rows and columns does it have?
 # What are the names of the columns?
@@ -22,6 +21,8 @@ View(flights)
 # during flight, as opposed to before departing).
 flights <- mutate(flights, delayed_in_air = arr_delay - dep_delay) 
 
+
+
 # Use `dplyr` to sort your data frame in descending order by the column you just
 # created. Remember to save this as a variable (or in the same one!)
 flights <- arrange(flights, -delayed_in_air)
@@ -29,6 +30,9 @@ flights <- arrange(flights, -delayed_in_air)
 # For practice, repeat the last 2 steps in a single statement using the pipe
 # operator. You can clear your environmental variables to "reset" the data frame
 
+flights %>% 
+  mutate(gain_in_air = arr_delay - dep_delay) %>%
+  arrange(desc(gain_in_air))
 
 # Make a histogram of the amount of time gained using the `hist()` function
 

@@ -3,31 +3,40 @@
 # Load the httr and jsonlite libraries for accessing data
 # You can also load `dplyr` if you wish to use it
 
+library("httr")
+install.packages("jsonlite")
+library("jsonlite")
+library("dplyr")
 
 # Create a variable base_uri that stores the base URI (as a string) for the 
 # Github API (https://api.github.com)
 
+base_url <- "https://api.github.com"
 
 # Under the "Repositories" category of the API documentation, find the endpoint 
 # that will list _repos in an organization_. Then create a variable named
 # `org_resource` that stores the endpoint for the `programming-for-data-science`
 # organization repos (this is the _path_ to the resource of interest).
 
+org_resource <- paste0("/orgs/","programming-for-data-science", "/repos")
 
 # Send a GET request to this endpoint (the `base_uri` followed by the 
 # `org_resource` path). Print the response to show that your request worked. 
 # (The listed URI will also allow you to inspect the JSON in the browser easily).
 
-
+response <- GET(paste0(base_url, org_resource))
 # Extract the content of the response using the `content()` function, saving it
 # in a variable.
 
+content_extracted <- content(response, "text")
 
 # Convert the content variable from a JSON string into a data frame.
 
+content_df <- fromJSON(content_extracted)
 
 # How many (public) repositories does the organization have?
 
+is.data.frame(content_df)  #TRUE
 
 # Now a second query:
 # Create a variable `search_endpoint` that stores the endpoint used to search 
